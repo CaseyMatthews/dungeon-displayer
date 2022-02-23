@@ -1,0 +1,8 @@
+# Compiled Pyton Files
+*.py[cod]
+*$py.class
+
+# Directories
+__pycache__/
+build/
+dist/

@@ -1,0 +1,16 @@
+[[source]]
+url = "https://pypi.org/simple"
+verify_ssl = true
+name = "pypi"
+
+[packages]
+kivy = "*"
+"kivy-deps.sdl2" = "*"
+
+[dev-packages]
+pytest = "*"
+pyinstaller = "*"
+
+
+[requires]
+python_version = "3.9.10"
