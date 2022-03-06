@@ -4,13 +4,11 @@ verify_ssl = true
 name = "pypi"
 
 [packages]
-kivy = "*"
-"kivy-deps.sdl2" = "*"
+pyside2 = "*"
 
 [dev-packages]
 pytest = "*"
 pyinstaller = "*"
 
-
 [requires]
-python_version = "3.9.10"
+python_version = "3.10"
