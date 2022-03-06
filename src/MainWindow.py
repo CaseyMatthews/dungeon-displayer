@@ -1,5 +1,6 @@
 from PySide2.QtWidgets import QApplication, QMainWindow, QPushButton, QLabel, QVBoxLayout, QHBoxLayout, QWidget, QComboBox
 from PySide2.QtCore import Qt
+from gameWindow import GameWindow
 
 class MainWindow(QMainWindow):
     
@@ -13,6 +14,9 @@ class MainWindow(QMainWindow):
         self.campaigns = ['Campaign 1', 'Campaign 2', 'Campaign 3']
         self.maps = ['Map1', 'Map2', 'Map3']
         self.rooms = ['room1', 'room2', 'room3']
+        
+        # create a game window
+        self.gameWindow = GameWindow()
         
         # window title
         self.setWindowTitle("Dungeon Displayer")
@@ -78,7 +82,8 @@ class MainWindow(QMainWindow):
         # fullscreen toggle button
         self.fullscreenButton = QPushButton('Full Screen')
         self.fullscreenButton.setCheckable(True)
-        self.fullscreenButton.setChecked(False)
+        self.fullscreenButton.setChecked(self.gameButton.isChecked())
+        self.fullscreenButton.setEnabled(self.gameButton.isChecked())
         self.hControlLayout.addWidget(self.fullscreenButton)
         self.fullscreenButton.clicked.connect(self.toggle_fullscreen_mode)
         
@@ -89,6 +94,10 @@ class MainWindow(QMainWindow):
         widget = QWidget()
         widget.setLayout(self.layout)
         self.setCentralWidget(widget)
+        
+    ### LAYOUT FUNCTIONS
+        
+    ### ACTION FUNCTIONS
 
     def campaign_selected(self, index):
         print("Campaign Selected: %s" % self.campaigns[index])
@@ -105,11 +114,15 @@ class MainWindow(QMainWindow):
         
     def toggle_game_mode(self, checked):
         print("Game Screen: %s" % checked)
+        self.gameWindow.reset_window_state()
+        self.gameWindow.setVisibility(checked)
+        self.fullscreenButton.setEnabled(checked)
+        self.fullscreenButton.setChecked(False)
         
     def toggle_fullscreen_mode(self, checked):
         print("Full Screen: %s" % checked)
+        self.gameWindow.setMaximized(checked)
         
     def set_title_label(self, newTitle):
         self.titleLabel.setText(newTitle)
         
-
