@@ -1,5 +1,5 @@
 from PySide2.QtWidgets import QApplication, QMainWindow, QPushButton, QLabel, QVBoxLayout, QHBoxLayout, QWidget, QComboBox
-import sys
+from PySide2.QtCore import Qt
 
 class MainWindow(QMainWindow):
     
@@ -10,7 +10,7 @@ class MainWindow(QMainWindow):
         super().__init__()
 
         # Test Data for now.
-        self.campaigns = ['Campaign 1', 'Campaign2', 'Campaign 3']
+        self.campaigns = ['Campaign 1', 'Campaign 2', 'Campaign 3']
         self.maps = ['Map1', 'Map2', 'Map3']
         self.rooms = ['room1', 'room2', 'room3']
         
@@ -19,6 +19,14 @@ class MainWindow(QMainWindow):
         
         # main Layout
         self.layout = QVBoxLayout()
+        
+        # campaign name label
+        self.titleLabel = QLabel(self.campaigns[0])
+        font = self.titleLabel.font()
+        font.setPointSize(25)
+        self.titleLabel.setFont(font)
+        self.titleLabel.setAlignment(Qt.AlignHCenter)
+        self.layout.addWidget(self.titleLabel)
 
         # campaign selector label
         self.campaignLabel = QLabel("Campaigns:")
@@ -28,7 +36,7 @@ class MainWindow(QMainWindow):
         self.campaignComboBox = QComboBox()
         self.campaignComboBox.addItems(self.campaigns)
         self.layout.addWidget(self.campaignComboBox)
-        self.campaignComboBox.currentIndexChanged.connect(self.campaignSelected)
+        self.campaignComboBox.currentIndexChanged.connect(self.campaign_selected)
         
         # map label
         self.mapLabel = QLabel("Maps:")
@@ -38,7 +46,7 @@ class MainWindow(QMainWindow):
         self.mapComboBox = QComboBox()
         self.mapComboBox.addItems(self.maps)
         self.layout.addWidget(self.mapComboBox)
-        self.mapComboBox.currentIndexChanged.connect(self.mapSelected)    
+        self.mapComboBox.currentIndexChanged.connect(self.map_selected)    
         
         # room label
         self.roomLabel = QLabel("Rooms:")
@@ -48,7 +56,7 @@ class MainWindow(QMainWindow):
         self.roomComboBox = QComboBox()
         self.roomComboBox.addItems(self.rooms)
         self.layout.addWidget(self.roomComboBox)
-        self.roomComboBox.currentIndexChanged.connect(self.roomSelected)
+        self.roomComboBox.currentIndexChanged.connect(self.room_selected)
         
         # horizontal layout
         self.hControlLayout = QHBoxLayout()
@@ -82,13 +90,14 @@ class MainWindow(QMainWindow):
         widget.setLayout(self.layout)
         self.setCentralWidget(widget)
 
-    def campaignSelected(self, index):
+    def campaign_selected(self, index):
         print("Campaign Selected: %s" % self.campaigns[index])
+        self.set_title_label(self.campaigns[index])
         
-    def mapSelected(self, index):
+    def map_selected(self, index):
         print("Map selected: %s" % self.maps[index])
         
-    def roomSelected(self,index):
+    def room_selected(self,index):
         print("Room selected: %s" % self.rooms[index])
         
     def toggle_edit_mode(self, checked):
@@ -99,4 +108,8 @@ class MainWindow(QMainWindow):
         
     def toggle_fullscreen_mode(self, checked):
         print("Full Screen: %s" % checked)
+        
+    def set_title_label(self, newTitle):
+        self.titleLabel.setText(newTitle)
+        
 
