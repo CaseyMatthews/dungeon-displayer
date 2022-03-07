@@ -126,3 +126,7 @@ class MainWindow(QMainWindow):
     def set_title_label(self, newTitle):
         self.titleLabel.setText(newTitle)
         
+    def closeEvent(self, event):
+        self.gameWindow.close()
+        event.accept()
+        
