@@ -4,10 +4,10 @@ from PySide2.QtCore import Qt
 
 class GameWindow(QWidget):
     
-    def __init__(self, displayed=False):
+    def __init__(self, defaultImagePath, displayed=False):
         super().__init__()        
         self.label = QLabel("Game Window")
-        self.ogMapImage = QPixmap("assets\Redbrand_Hideout_Map_numbered.jpg")
+        self.ogMapImage = QPixmap(defaultImagePath)
         self.label.setPixmap(self.ogMapImage)
         self.layout = QVBoxLayout()
         self.layout.addWidget(self.label)
@@ -40,8 +40,20 @@ class GameWindow(QWidget):
         self.showNormal()
         self.resize(500,500)
         
-    def resizeEvent(self, event):
-        self.label.resize(self.width(), self.height())
+    def set_map_image(self, imagePath):
+        self.ogMapImage = QPixmap(imagePath)
+    
+    def scale_map_image(self):
         image = self.ogMapImage.scaled(self.width(), self.height())
         self.label.setPixmap(image)
+        
+    def set_scaled_map_image(self, imagePath):
+        self.set_map_image(imagePath)
+        self.scale_map_image()
+        
+    def resizeEvent(self, event):
+        # self.label.resize(self.width(), self.height())
+        # image = self.ogMapImage.scaled(self.width(), self.height())
+        # self.label.setPixmap(image)
+        self.scale_map_image()
         event.accept()

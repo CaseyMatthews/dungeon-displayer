@@ -12,11 +12,11 @@ class MainWindow(QMainWindow):
 
         # Test Data for now.
         self.campaigns = ['Campaign 1', 'Campaign 2', 'Campaign 3']
-        self.maps = ['Map1', 'Map2', 'Map3']
+        self.maps = ['assets\Redbrand_Hideout_Map_numbered.jpg', 'assets\Redbrand_Hideout_Map_not_numbered.webp']
         self.rooms = ['room1', 'room2', 'room3']
         
         # create a game window
-        self.gameWindow = GameWindow()
+        self.gameWindow = GameWindow(self.maps[0])
         
         # window title
         self.setWindowTitle("Dungeon Displayer")
@@ -105,6 +105,7 @@ class MainWindow(QMainWindow):
         
     def map_selected(self, index):
         print("Map selected: %s" % self.maps[index])
+        self.gameWindow.set_scaled_map_image(self.maps[index])
         
     def room_selected(self,index):
         print("Room selected: %s" % self.rooms[index])
