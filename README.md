@@ -10,9 +10,9 @@ This is a project to help Dungeons and Dragons Dungeon Masters to display digita
    - pipenv (Virtual Envronment and Dependency Management)
    - pyinstaller (Build Management)
 
-## Setup
-
 ---
+
+## Setup
 
 #### Ensure Correct Version of Python
 
